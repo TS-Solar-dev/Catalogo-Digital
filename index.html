@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TS.Solar - Aquecendo sonhos desde 2014</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!--
+        A classe 'loading-state' no body controla a animação inicial do logo.
+        O JavaScript a remove para iniciar a transição.
+    -->
+    <div id="main-content-screen">
+        <header>
+            <div class="logo-container-top">
+                <img src="LOGO.png" alt="Logo TS.Solar" class="logo-icon"/>
+            </div>
+        </header>
+
+        <main class="container">
+            <div id="typewriter-container">
+                <p id="typewriter-text"></p>
+            </div>
+            
+            <div id="products-title-container">
+                 <!-- Título aparecerá aqui via JS -->
+            </div>
+
+            <div id="products-section">
+                <!-- PRODUTO PRINCIPAL EXIBIDO -->
+                <div id="main-product-display" class="product-card-main">
+                    <!-- O conteúdo será preenchido pelo JavaScript -->
+                </div>
+
+                <!-- GALERIA DE PRODUTOS FIXA E CENTRALIZADA -->
+                <div id="product-gallery-container">
+                    <div id="product-gallery-track">
+                         <!-- Itens da galeria serão preenchidos pelo JavaScript -->
+                    </div>
+                </div>
+
+                <!-- BOTÃO DE FINALIZAR -->
+                <div class="finish-button-container">
+                    <button id="finish-visit-btn" class="btn btn-secondary">
+                        Finalizar Visita
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Botão para pular a animação inicial -->
+            <button id="skip-intro-btn" class="btn btn-skip">Pular Introdução</button>
+        </main>
+    </div>
+
+    <!-- TELA FINAL -->
+    <div id="final-screen" class="screen">
+        <div class="final-content">
+            <div class="logo-container">
+                <img src="LOGO.png" alt="Logo TS.Solar" class="logo-icon"/>
+            </div>
+            <h2>Aquecendo sonhos desde 2014</h2>
+            <div class="divider">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="contact-info">
+                <a href="https://www.google.com/maps/place/T%C3%A1+solar/@-23.3419497,-51.1445499,17z/data=!4m15!1m8!3m7!1s0x94eb4304063e23e5:0x2aaf35e454a3765!2sAv.+Portugal,+502+-+Lago+Igap%C3%B3,+Londrina+-+PR,+86046-010!3b1!8m2!3d-23.3417822!4d-51.1434448!16s%2Fg%2F11lmp2vxhm!3m5!1s0x94eb43001a7cd585:0xa58bf58666e1440!8m2!3d-23.3418151!4d-51.1433549!16s%2Fg%2F11xkny9srt?entry=ttu&g_ep=EgoyMDI1MDYyMy4yIKXMDSoASAFQAw%3D%3D" target="_blank">
+                    <p>Av. Portugal, 502 - Lago Igapó</p>
+                    <p>Londrina - PR, 86046-010</p>
+                </a>
+            </div>
+            <div class="contact-info">
+                 <a href="https://wa.me/5543999540143" target="_blank"><p class="phone">(43) 99954-0143</p></a>
+                 <a href="#" id="fixed-phone-link"><p class="phone">(43) 3343-1443</p></a>
+                 <p id="fixed-phone-message" class="phone-message">Este contato é apenas para ligações fixas.</p>
+            </div>
+            <a href="https://www.ts-solar.com.br" target="_blank"><p class="website">www.TS-Solar.com.br</p></a>
+        </div>
+    </div>
+    
+    <!-- CONTROLE DE MÚSICA E PLAYER -->
+    <div id="music-toggle" class="music-toggle-btn muted">
+        <img src="iconemusica.png" alt="Controle de Música" class="music-icon-img">
+        <span class="icon-music-slash"></span>
+    </div>
+    <audio id="bg-music" loop src="MUSIC.mp3"></audio>
+
+
+    <!-- MODAIS -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div id="modal-specs" class="modal-content hidden">
+            <button class="modal-close-btn">×</button>
+            <img id="modal-specs-image" src="" alt="Ficha Técnica" />
+        </div>
+        <div id="modal-kit" class="modal-content hidden"> <button class="modal-close-btn">×</button> <h3>KIT FECHAMENTO ROSQUEÁVEL</h3> <img src="KITFECHAMENTO.png" alt="Kit Fechamento" class="modal-kit-image"/> <div class="modal-kit-details"> <p class="list-title">Acompanha:</p> <ul> <li>Conexões</li> <li>Porcas</li> <li>Tampas</li> <li>O-Rings</li> <li>Ferramenta Auxiliar para Instalação</li> </ul> </div> </div>
+        <div id="modal-panel" class="modal-content wide hidden"> <button class="modal-close-btn">×</button> <h3>PAINEL DE COMANDO</h3> <div class="panel-container"> <img src="CONTROLADORA.png" alt="Painel Principal" class="panel-main-img"/> <div class="panel-inset-img top-right"> <img src="CIRCUITO.png" alt="Circuito Envernizado"/> <p>Circuito Envernizado</p> </div> <div class="panel-inset-img bottom-left"> <img src="MEMBRANA.png" alt="Membrana PVC"/> <p>Membrana PVC</p> </div> </div> <p class="panel-description"> Os painéis de comando para o aquecedor de banheira são protegidos por um verniz especial interno antiferrugem, anticorrosão e uma membrana de composto PVC, o que aumenta a durabilidade e longevidade de nossos produtos. </p> </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

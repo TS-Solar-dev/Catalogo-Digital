@@ -1,0 +1,462 @@
+:root {
+    --primary-color: #1d447f;
+    --secondary-color: #e48300;
+    --text-color: #333;
+    --bg-color: #f8f9fa;
+    --white-color: #ffffff;
+    --success-color: #28a745;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--white-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- ESTADO DE CARREGAMENTO INICIAL E TRANSIÇÃO DA LOGO --- */
+body.loading-state {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+body.loading-state #main-content-screen > main {
+    display: none;
+}
+body.loading-state .logo-container-top {
+    padding: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+body.loading-state .logo-icon {
+    width: 250px; /* Logo inicial GRANDE */
+    height: auto;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* --- ESTADOS FINAIS DOS ELEMENTOS PÓS-ANIMAÇÃO --- */
+header {
+    /* REMOVA o height: 140px; daqui. Ele não é mais necessário. */
+    /* A altura será definida pelo conteúdo do .logo-container-top */
+}
+main.container {
+    /* Adicione este padding-top para não ficar embaixo do header fixo */
+    padding-top: 70px; 
+}
+.logo-container-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0; /* Aumentei um pouco o padding para dar mais respiro */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--white-color);
+    z-index: 100;
+    transform: translate(0, 0);
+    transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.logo-icon {
+    width: 140px; /* Logo final, agora maior! */
+    height: auto;
+    animation: none;
+    transition: width 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* --- TRANSIÇÕES DE TELA E BOTÃO SKIP --- */
+.screen {
+    min-height: 100vh; width: 100%; display: none; flex-direction: column;
+    align-items: center; justify-content: center; opacity: 0; transition: opacity 0.6s ease-out;
+}
+.screen.visible { display: flex; opacity: 1; }
+#main-content-screen.fading-out { opacity: 0; pointer-events: none; transition: opacity 0.6s ease-out; }
+.hidden { display: none !important; }
+
+.btn-skip {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    /* Inicia um pouco para baixo e transparente */
+    transform: translate(-50%, 20px);
+    z-index: 1001;
+    background-color: rgba(29, 68, 127, 0.8);
+    color: var(--white-color);
+    opacity: 0;
+    pointer-events: none;
+    /* Adiciona transição para o transform */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.btn-skip.visible {
+    opacity: 1;
+    /* Move para a posição final */
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+    /* Atraso para ele não aparecer imediatamente */
+    transition-delay: 1s; 
+}
+
+/* --- ANIMAÇÃO TYPEWRITER E TÍTULO --- */
+#typewriter-container {
+    background-color: var(--white-color); border-left: 5px solid var(--secondary-color);
+    padding: 20px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 8px; opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+#typewriter-container.visible { opacity: 1; }
+#typewriter-container.fading-out { opacity: 0; transform: translateY(-20px); }
+#typewriter-text { font-size: 1.1rem; color: var(--primary-color); white-space: pre-wrap; }
+#typewriter-text .cursor {
+    display: inline-block; background-color: var(--secondary-color);
+    width: 10px; animation: blink-caret 0.75s step-end infinite;
+}
+.products-main-title {
+    font-size: 2rem; font-weight: 700; text-align: center;
+    color: var(--secondary-color); margin-bottom: 20px; animation: fadeIn 0.5s ease;
+}
+@keyframes blink-caret { from, to { background-color: transparent } 50% { background-color: var(--secondary-color); } }
+
+/* --- SEÇÃO DE PRODUTOS --- */
+#products-section {
+    width: 100%; opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+#products-section.visible { opacity: 1; transform: translateY(0); }
+.product-card-main {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;
+    background: var(--white-color); padding: 30px; border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1); margin-bottom: 50px;
+    transition: opacity 0.3s ease-in-out;
+}
+.product-image-container img { max-width: 100%; filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.2)); }
+.product-details h2 { color: var(--primary-color); font-size: 2rem; margin-bottom: 5px; }
+.product-details .subtitle { color: var(--secondary-color); font-weight: 600; margin-bottom: 15px; }
+.product-details .description { margin-bottom: 20px; }
+.product-features { margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
+.feature-item { display: flex; align-items: center; gap: 15px; }
+/* AJUSTE ÍCONES CIRCULARES */
+.feature-item .icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background-color: var(--secondary-color);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; /* Garante que a imagem não vaze */
+    flex-shrink: 0;
+}
+.feature-item .icon img {
+    width: 100%; height: 100%; /* Imagem preenche o círculo */
+    object-fit: cover; /* Mantém a proporção e cobre o espaço */
+}
+.feature-item h4 { color: var(--primary-color); font-size: 1.1rem; }
+.feature-item p { font-size: 0.9rem; color: #555; }
+.product-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+.btn { padding: 12px 25px; border: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
+.btn-primary { background-color: var(--primary-color); color: var(--white-color); }
+.btn-secondary { background-color: var(--secondary-color); color: var(--white-color); }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+/* --- NOVA GALERIA DE PRODUTOS FIXA E CENTRALIZADA --- */
+#product-gallery-container {
+    width: 100%;
+    margin-bottom: 30px;
+}
+#product-gallery-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.gallery-item {
+    width: 160px;
+    height: 190px;
+    background: var(--white-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+}
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+.gallery-item.active {
+    border-color: var(--secondary-color);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(228, 131, 0, 0.3);
+}
+.gallery-item img {
+    width: 100%;
+    height: 100px; /* Mantém a altura fixa para o contêiner da imagem */
+    object-fit: contain; /* ESSA É A MUDANÇA PRINCIPAL */
+    padding: 5px; /* Opcional: Adiciona um pequeno respiro interno */
+}
+.gallery-item-info {
+    padding: 10px; text-align: left; height: 80px;
+    display: flex; flex-direction: column; justify-content: center;
+}
+.gallery-item-info h4 { color: var(--primary-color); font-size: 0.9rem; line-height: 1.2; margin-bottom: 4px; white-space: normal; }
+.gallery-item-info p { color: var(--secondary-color); font-size: 0.75rem; line-height: 1.2; }
+
+.finish-button-container { text-align: center; padding: 20px 0; }
+
+/* --- TELA FINAL --- */
+#final-screen .logo-icon { width: 250px; animation: pulse 2s infinite ease-in-out;}
+.final-content { text-align: center; color: var(--primary-color); display: flex; flex-direction: column; gap: 10px; }
+.final-content h2 { color: var(--secondary-color); font-size: 1.5rem; }
+.divider { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.divider .line { height: 2px; background-color: var(--primary-color); }
+.divider .line:nth-child(1) { width: 120px; }
+.divider .line:nth-child(2) { width: 90px; background-color: var(--secondary-color); }
+.divider .line:nth-child(3) { width: 60px; }
+.contact-info a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+.contact-info a:hover { color: var(--secondary-color); }
+.contact-info .phone, .website { font-weight: 700; }
+.website { color: var(--secondary-color); font-size: 1.2rem; }
+.phone-message {
+    color: var(--success-color); font-weight: 600; font-size: 0.8rem; height: 0;
+    opacity: 0; overflow: hidden; transition: all 0.4s ease-in-out;
+}
+.phone-message.show-message { height: 1.2rem; opacity: 1; margin-top: 5px; }
+
+/* --- MODAIS --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);
+    display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: var(--white-color); padding: 30px; border-radius: 12px; max-width: 90%;
+    max-height: 93vh; overflow-y: auto; position: relative; animation: fadeIn 0.3s ease; text-align: center;
+}
+#modal-specs {
+    /* Removemos o padding e o background para que o contêiner não crie bordas */
+    padding: 10px;
+    background: none;
+    box-shadow: none;
+    
+    /* Importante: Isso faz com que o botão "X" (que é position: absolute) 
+       se posicione em relação a este contêiner e não à tela inteira. */
+    position: relative; 
+}
+
+#modal-specs-image {
+    max-width: 85vw; /* Usamos vw (viewport width) para limitar em relação à largura da tela */
+    max-height: 90vh; /* E vh (viewport height) para a altura */
+    display: block; /* Remove espaços extras que a tag img pode ter por padrão */
+    border-radius: 12px; /* Mantemos as bordas arredondadas na imagem */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* E a sombra também */
+}
+
+.modal-close-btn {
+    position: absolute; top: 10px; right: 15px; background: none; border: none;
+    font-size: 2rem; color: #aaa; cursor: pointer; z-index: 1;
+}
+#modal-specs .modal-close-btn {
+    position: absolute; 
+    top: 5px; 
+    right: 5px;
+    color: var(--white-color); 
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%; 
+    width: 20px; 
+    height: 20px; 
+    font-size: 1.0rem;
+    font-weight: bold;
+    line-height: 0px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10;
+    border: 2px solid var(--white-color);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+#modal-specs .modal-close-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+#modal-kit h3 { color: var(--secondary-color); font-size: 1.8rem; margin-bottom: 20px; }
+.modal-kit-image { max-width: 300px; margin-bottom: 20px; }
+.modal-kit-details { text-align: left; max-width: 300px; margin: 0 auto; color: var(--primary-color); }
+.list-title { font-weight: 600; }
+.modal-kit-details ul { list-style: none; }
+.modal-kit-details li::before { content: '• '; color: var(--secondary-color); }
+#modal-panel h3 { 
+    color: var(--secondary-color); 
+    font-size: 1.8rem; 
+    margin-bottom: 20px; 
+}
+
+/* ESTILO DESKTOP (padrão) */
+.panel-container { 
+    position: relative; /* ESSENCIAL para o posicionamento absoluto dos filhos */
+    max-width: 600px; 
+    margin: 0 auto 30px; 
+}
+.panel-main-img { 
+    width: 80%; 
+    border-radius: 12px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+    display: block; /* Boa prática para imagens */
+    margin: 0 auto; /* Centraliza a imagem principal */
+}
+
+.panel-inset-img { 
+    position: absolute; /* ESSENCIAL para o layout de cantos */
+    background: rgba(255, 255, 255, 0.9); 
+    padding: 10px; 
+    border-radius: 8px; 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2); 
+}
+.panel-inset-img.top-right { 
+    top: 15px; 
+    right: 15px; 
+}
+.panel-inset-img.bottom-left { 
+    bottom: 15px; 
+    left: 15px; 
+}
+.panel-inset-img img { 
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    border-radius: 6px; 
+}
+.panel-inset-img p { 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+    margin-top: 5px; 
+    color: var(--primary-color); 
+}
+
+.panel-description { 
+    max-width: 600px; 
+    margin: 0 auto; 
+    text-align: left; 
+    background: #f0f4f8; 
+    padding: 20px; 
+    border-left: 4px solid var(--secondary-color); 
+    border-radius: 0 8px 8px 0; 
+    color: var(--primary-color); 
+}
+
+/* --- CONTROLE DE MÚSICA --- */
+.music-toggle-btn {
+    position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px;
+    background-color: var(--primary-color); border-radius: 50%; cursor: pointer;
+    z-index: 1001; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.3s ease;
+}
+.music-toggle-btn:hover { transform: scale(1.1); }
+
+/* AJUSTE TAMANHO ÍCONE */
+
+.music-icon-img {
+    width: 55%; /* Controle o tamanho do ícone aqui (55% do botão) */
+    height: auto;
+    transition: opacity 0.3s ease;
+}
+
+/* Faz o ícone ficar um pouco apagado quando a música está pausada */
+.music-toggle-btn.muted .music-icon-img {
+    opacity: 0.7;
+}
+
+.icon-music-slash {
+    position: absolute; width: 3px; height: 120%;
+    background-color: var(--secondary-color); transform: rotate(45deg);
+    transition: opacity 0.3s ease; opacity: 0;
+}
+.music-toggle-btn.muted .icon-music-slash { opacity: 1; }
+
+/* --- ANIMAÇÕES E RESPONSIVIDADE --- */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+@media (max-width: 768px) {
+    body.loading-state .logo-icon { 
+        width: 180px; 
+    }
+
+    main.container {
+        padding-top: 110px; /* Mantém o ajuste de espaçamento do topo */
+    }
+
+    .logo-icon { 
+        width: 100px; 
+    }
+
+    .product-card-main { 
+        grid-template-columns: 1fr; 
+        padding: 20px; 
+    }
+
+    .product-image-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .products-main-title { 
+        font-size: 1.5rem; 
+    }
+
+    .product-details h2 { 
+        font-size: 1.5rem; 
+    }
+
+    .music-toggle-btn { 
+        width: 45px; 
+        height: 45px; 
+        bottom: 15px; 
+        right: 15px; 
+    }
+    
+    .modal-kit-image {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* --- ESTILOS MOBILE CORRIGIDOS PARA O PAINEL DE COMANDO --- */
+    .panel-container {
+        display: flex;
+        flex-wrap: wrap;        /* Permite que os itens quebrem a linha */
+        justify-content: center; /* Centraliza os itens na linha */
+        gap: 15px;              /* Espaço entre todos os itens */
+    }
+
+    .panel-main-img {
+        /* A imagem principal vai ocupar a linha inteira, forçando a quebra */
+        flex-basis: 100%; 
+        order: 1; /* Garante que ela venha primeiro */
+    }
+
+    .panel-inset-img {
+        position: static; /* Tira o posicionamento absoluto do desktop */
+        order: 2;         /* Garante que venham depois da principal */
+        width: 140px;     /* Um tamanho fixo e consistente */
+        text-align: center; /* Centraliza o texto (Circuito/Membrana) */
+    }
+    /* --- FIM DA CORREÇÃO --- */
+}
+
+/* Regra para o botão de pular introdução (fora da media query) */
+.btn-skip:hover {
+    transform: translate(-50%, 0);
+    box-shadow: none;
+}
