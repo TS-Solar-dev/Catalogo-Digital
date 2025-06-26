@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             sequenceTimeout = setTimeout(() => {
                 typewriterContainer.classList.add('visible');
-                typeWriter(typewriterTextEl, mainText, 25, () => {
+                typeWriter(typewriterTextEl, mainText, 50, () => {
                     sequenceTimeout = setTimeout(() => {
                         // Esconde o botão e o texto para mostrar os produtos
                         skipIntroBtn.classList.remove('visible'); 
