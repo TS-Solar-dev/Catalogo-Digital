@@ -131,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('loading-state');
         skipIntroBtn.classList.add('visible');
 
-        const mainText = `O calor do sol é uma fonte renovável de energia, mais limpa e abundante existente no planeta. Desejamos contribuir para o desenvolvimento econômico, qualidade ambiental e de vida da sociedade através dos nossos produtos e equipamentos.\n\nNa TS.Solar, utilizamos material 100% virgem, livre de chumbo. Assim, sua piscina continua livre de materiais pesados, enquanto se mantém quentinha.`;
-        
+        const mainText = `Olá, eu sou a Sol 😁, IA da TS.Solar, e vim te apresentar rapidinho nossa empresa!\n\nEstamos no mercado desde 2014, levando aquecimento solar de qualidade pra todo o Brasil.\n\n🌞 O que você encontra com a gente?\n- Coletores solares rosqueáveis\n- Controladores digitais\n- Válvulas quebra-vácuo\n- Válvulas de retenção\n- Aquecedores de banheira\n\nTudo com garantia, pronta entrega e um atendimento comercial especializado pra te ajudar sempre que precisar!\n\n👨‍🔧 É lojista? A gente tem o melhor esquema de revenda:\n- Produtos fáceis de instalar\n- Condições de pagamento diferenciadas\n- Logística rápida\n- Suporte técnico dedicado\n\n🌱 E mais: nossos materiais são livres de chumbo e não usam químicos pesados.\nA gente une tecnologia, durabilidade e cuidado com o meio ambiente.`;
+
         sequenceTimeout = setTimeout(() => {
             document.body.classList.remove('loading-state');
             
@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
                            productsSection.classList.add('visible');
                            renderMainProduct(products[0]);
                            setupGallery();
-                        }, 500);
-                    }, 2000);
+                        }, 1000);
+                    }, 5000);
                 });
             }, 1000); // Aumentado um pouco o delay para a logo assentar
         }, 2500); 
